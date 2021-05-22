@@ -69,3 +69,6 @@ But some variables are mandatory:
 - `proxy_grafana_host` The hostname for your Grafana dashboard
 - `proxy_mdh_host` Your MD@H host token, this is the second part from your MD@H client URL, for example if your client 
   URL is `https://tf4oiu67eza23.ou1eoz46aez7a.mangadex.network:443`, this variable should contain `ou1eoz46aez7a`
+
+If you override `with_grafana` variable to `false`, `certbot_admin_email` & `proxy_grafana_host` variables won't be 
+required anymore.

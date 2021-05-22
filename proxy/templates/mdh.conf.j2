@@ -3,9 +3,11 @@ stream {
         server 127.0.0.1:446;
     }
 
+{% if with_grafana %}
     upstream grafana {
         server 127.0.0.1:445;
     }
+{% endif %}
 
     upstream mdah {
         server 127.0.0.1:{{ mdh_port }};
@@ -13,7 +15,9 @@ stream {
 
     map $ssl_preread_server_name $targetBackend {
         ~^.+\.{{ proxy_mdh_host }}\.mangadex\.network$ mdah;
+{% if with_grafana %}
         ~^{{ proxy_grafana_host }}$ grafana;
+{% endif %}
         default error;
     }
 

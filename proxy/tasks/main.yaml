@@ -15,9 +15,11 @@
     state: absent
 
 - name: Install certbot
+  when: with_grafana
   include_tasks: certbot.yaml
 
 - name: Install grafana proxy
+  when: with_grafana
   include_tasks: grafana.yaml
 
 - name: Install mdh proxy
