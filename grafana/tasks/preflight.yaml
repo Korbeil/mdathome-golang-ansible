@@ -1,0 +1,5 @@
+---
+- name: Fail when grafana_password isn't set
+  fail:
+    msg: "You need to specify your grafana password"
+  when: grafana_password == 'password'

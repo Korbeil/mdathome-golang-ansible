@@ -1,0 +1,17 @@
+---
+- name: Install Grafana proxy
+  template:
+    src: grafana.j2
+    dest: /etc/nginx/sites-available/grafana
+    mode: '0644'
+
+- name: Enable Grafana proxy
+  file:
+    src: /etc/nginx/sites-available/grafana
+    dest: /etc/nginx/sites-enabled/grafana
+    state: link
+
+- name: Reload nginx
+  service:
+    name: nginx
+    state: reloaded

@@ -1,0 +1,8 @@
+server {
+	listen 446 default;
+	server_name _;
+
+	location / {
+        return 404;
+	}
+}

@@ -1,0 +1,58 @@
+---
+- name: Preflight
+  include_tasks: preflight.yaml
+- include_role:
+    name: cloudalchemy.node_exporter
+- include_role:
+    name: cloudalchemy.prometheus
+  vars:
+    prometheus_global:
+      scrape_interval: 10s
+      scrape_timeout: 5s
+      evaluation_interval: 10s
+    prometheus_targets:
+      node:
+        - targets:
+            - 0.0.0.0:9100
+          labels:
+            env: "{{ prometheus_env }}"
+    prometheus_scrape_jobs:
+      - job_name: 'node'
+        file_sd_configs:
+          - files:
+              - '/etc/prometheus/file_sd/node.yml'
+    prometheus_scrape_configs:
+      - job_name: "mdathome"
+        metrics_path: "/metrics"
+        scheme: https
+        tls_config:
+          insecure_skip_verify: true
+        static_configs:
+          - targets:
+              - 0.0.0.0:{{ mdh_port }}
+            labels:
+              env: "{{ prometheus_env }}"
+      - job_name: "node"
+        file_sd_configs:
+          - files:
+              - "/etc/prometheus/file_sd/node.yml"
+- include_role:
+    name: cloudalchemy.grafana
+  vars:
+    grafana_security:
+      admin_user: 'admin'
+      admin_password: '{{ grafana_password }}'
+    grafana_datasources:
+      - name: prometheus
+        type: prometheus
+        access: proxy
+        url: 'http://127.0.0.1:9090/'
+        basicAuth: false
+        isDefault: true
+    grafana_dashboards:
+      - dashboard_id: 1860 # Node exporter full
+        revision_id: 23
+        datasource: prometheus
+      - dashboard_id: 13344 # Node mdadm
+        datasource: prometheus
+        revision_id: 1

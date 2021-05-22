@@ -1,0 +1,12 @@
+[Unit]
+Description=MangaDex@Home Client
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/mdathome -config {{ mdh_configuration_directory }}/settings.json
+
+User=mdh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

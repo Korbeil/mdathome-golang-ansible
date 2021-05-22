@@ -1,0 +1,5 @@
+---
+- name: Fail when mdh_token isn't set
+  fail:
+    msg: "You need to specify your MD@H token"
+  when: mdh_token == ''

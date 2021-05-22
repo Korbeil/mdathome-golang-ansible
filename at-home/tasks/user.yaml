@@ -1,0 +1,38 @@
+---
+- name: Add the user 'mdh'
+  user:
+    name: '{{ mdh_user }}'
+    create_home: no
+
+- name: Create mdh cache directory
+  file:
+    path: '{{ mdh_cache_directory }}'
+    state: directory
+    owner: '{{ mdh_user }}'
+    group: '{{ mdh_user }}'
+    mode: '0744'
+
+- name: Create mdh log directory
+  file:
+    path: '{{ mdh_log_directory }}'
+    state: directory
+    owner: '{{ mdh_user }}'
+    group: '{{ mdh_user }}'
+    mode: '0644'
+
+- name: Create mdh configuration directory
+  file:
+    path: '{{ mdh_configuration_directory }}'
+    state: directory
+    owner: '{{ mdh_user }}'
+    group: '{{ mdh_user }}'
+    mode: '0744'
+
+- name: Generate mdh configuration
+  template:
+    src: configuration.json.j2
+    dest: '{{ mdh_configuration_directory }}/settings.json'
+    owner: '{{ mdh_user }}'
+    group: '{{ mdh_user }}'
+    mode: '0644'
+    force: true

@@ -1,0 +1,15 @@
+---
+- name: Fail when proxy_mdh_host isn't set
+  fail:
+    msg: "You need to specify your MD@H account token"
+  when: proxy_mdh_host == 'account_token'
+
+- name: Fail when certbot_admin_email isn't set
+  fail:
+    msg: "You need to specify your Certbot admin email"
+  when: certbot_admin_email == 'foo@bar.baz'
+
+- name: Fail when proxy_grafana_host isn't set
+  fail:
+    msg: "You need to specify your MD@H account token"
+  when: proxy_grafana_host == 'grafana.example.com'

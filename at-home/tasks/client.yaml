@@ -1,0 +1,40 @@
+---
+- name: Install upx (binary unpacker)
+  apt:
+    name: upx
+    state: present
+    update_cache: true
+    cache_valid_time: 600
+
+- name: Download v1.10.3 mdathome client
+  get_url:
+    url: https://github.com/lflare/mdathome-golang/releases/download/v1.10.3/mdathome-1.10.3-linux_amd64
+    dest: '/usr/local/bin/mdathome'
+    owner: '{{ mdh_user }}'
+    group: '{{ mdh_user }}'
+    mode: '0755'
+    force: true
+
+- name: Unpack mdathome client
+  command: '/usr/bin/upx -d /usr/local/bin/mdathome'
+
+- name: Set capabilities for mdh binary
+  capabilities:
+    path: '/usr/local/bin/mdathome'
+    capability: CAP_NET_BIND_SERVICE+eip
+    state: present
+
+- name: Generate systemd mdh service
+  template:
+    src: mdh.service.j2
+    dest: '/etc/systemd/system/mdh.service'
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Start mdh service
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: mdh
+  timeout: 0 # MD@H will wait for users to finish their requests

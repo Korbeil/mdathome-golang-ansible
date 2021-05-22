@@ -1,0 +1,9 @@
+---
+- name: Preflight
+  include_tasks: preflight.yaml
+
+- name: Process user related tasks
+  include_tasks: user.yaml
+
+- name: Process client related tasks
+  include_tasks: client.yaml

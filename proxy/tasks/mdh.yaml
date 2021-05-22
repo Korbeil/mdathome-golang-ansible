@@ -1,0 +1,28 @@
+---
+- name: Install MD@H stream
+  template:
+    src: mdh.conf.j2
+    dest: /etc/nginx/modules-available/mdh.conf
+    mode: '0644'
+
+- name: Install default page
+  copy:
+    src: error
+    dest: /etc/nginx/sites-available/error
+
+- name: Enable MD@H stream
+  file:
+    src: /etc/nginx/modules-available/mdh.conf
+    dest: /etc/nginx/modules-enabled/mdh.conf
+    state: link
+
+- name: Enable error page
+  file:
+    src: /etc/nginx/sites-available/error
+    dest: /etc/nginx/sites-enabled/error
+    state: link
+
+- name: Reload nginx
+  service:
+    name: nginx
+    state: reloaded

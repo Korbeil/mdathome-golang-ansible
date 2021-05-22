@@ -1,0 +1,25 @@
+stream {
+    upstream error {
+        server 127.0.0.1:446;
+    }
+
+    upstream grafana {
+        server 127.0.0.1:445;
+    }
+
+    upstream mdah {
+        server 127.0.0.1:{{ mdh_port }};
+    }
+
+    map $ssl_preread_server_name $targetBackend {
+        ~^.+\.{{ proxy_mdh_host }}\.mangadex\.network$ mdah;
+        ~^{{ proxy_grafana_host }}$ grafana;
+        default error;
+    }
+
+    server {
+        listen 443 reuseport;
+        proxy_pass $targetBackend;
+        ssl_preread on;
+    }
+}

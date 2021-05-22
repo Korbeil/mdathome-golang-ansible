@@ -1,0 +1,11 @@
+---
+mdh_user: 'mdh'
+mdh_configuration_directory: '/etc/mdh'
+mdh_cache_directory: '/home/mdh'
+mdh_log_directory: '/var/log/mdathome'
+
+mdh_token: ''
+mdh_port: 44344
+mdh_allowed_speed: 10000 # 10 Mbps
+mdh_allowed_cache: 10240 # 10 GiB
+mdh_log_level: info
