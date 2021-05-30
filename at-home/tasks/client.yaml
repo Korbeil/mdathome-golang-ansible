@@ -6,9 +6,9 @@
     update_cache: true
     cache_valid_time: 600
 
-- name: Download v1.10.3 mdathome client
+- name: Download v1.11.2 mdathome client
   get_url:
-    url: https://github.com/lflare/mdathome-golang/releases/download/v1.10.3/mdathome-1.10.3-linux_amd64
+    url: https://github.com/lflare/mdathome-golang/releases/download/v1.11.2/mdathome-1.11.2-linux_amd64
     dest: '/usr/local/bin/mdathome'
     owner: '{{ mdh_user }}'
     group: '{{ mdh_user }}'
