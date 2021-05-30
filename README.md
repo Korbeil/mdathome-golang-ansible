@@ -5,6 +5,7 @@
 Ansible roles to install [flare's MD@H client](https://github.com/lflare/mdathome-golang) and related tooling.
 
 Theses roles will install:
+- A firewall thanks to UFW;
 - MD@H with a systemd daemon;
 - Prometheus to collect all your server metrics;
 - Grafana to read all theses metrics with preconfigured dashboards;
@@ -19,6 +20,7 @@ the roles with scripts like:
 - hosts: mdh
   become: yes
   roles:
+    - firewall
     - at-home
     - grafana
     - proxy
@@ -41,6 +43,10 @@ ansible-galaxy install -r requirements.yaml
 Across all roles, there is one variable that is managing if the current target is a primary or a simple node. By 
 default, we assume that you are running only one node and `mdh_node_type` is set to `primary` but if you run more than
 one node, and you want to aggregate all the metrics, please set secondary nodes as `node`.
+
+### Firewall
+
+This role will setup UFW firewall for all the needs from other roles.
 
 ### AtHome
 
