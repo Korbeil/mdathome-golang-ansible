@@ -1,0 +1,34 @@
+---
+- name: Reset UFW rules
+  ufw:
+    state: reset
+
+- name: Disallow all outgoing traffic
+  ufw:
+    direction: incoming
+    policy: deny
+
+- name: Allow all outgoing traffic
+  ufw:
+    direction: outgoing
+    policy: allow
+
+- name: Allow HTTPS
+  ufw:
+    rule: allow
+    port: '443'
+
+- name: Allow SSH
+  ufw:
+    rule: allow
+    port: '22'
+
+- name: Allow HTTP
+  ufw:
+    rule: allow
+    port: '80'
+  when: mdh_node_type == 'primary'
+
+- name: Enable UFW
+  ufw:
+    state: enabled
