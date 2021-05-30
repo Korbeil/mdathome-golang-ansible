@@ -15,9 +15,11 @@
     state: absent
 
 - name: Install certbot
+  when: mdh_node_type == 'primary'
   include_tasks: certbot.yaml
 
 - name: Install grafana proxy
+  when: mdh_node_type == 'primary'
   include_tasks: grafana.yaml
 
 - name: Install mdh proxy

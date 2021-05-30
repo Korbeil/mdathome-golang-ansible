@@ -15,8 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 9,
-  "iteration": 1621676078092,
+  "iteration": 1621896596513,
   "links": [
     {
       "icon": "external link",
@@ -488,7 +487,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "node_filesystem_avail_bytes{mountpoint=\"/mnt/mdh\"} / node_filesystem_size_bytes{mountpoint=\"/mnt/mdh\"}",
+          "expr": "((node_filesystem_size_bytes{mountpoint=\"/mnt/mdh\"} - node_filesystem_avail_bytes{mountpoint=\"/mnt/mdh\"}) / 2) / node_filesystem_size_bytes{mountpoint=\"/mnt/mdh\"} * 100",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -748,7 +747,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "node_filesystem_size_bytes{mountpoint=\"/mnt/mdh\"} - node_filesystem_avail_bytes{mountpoint=\"/mnt/mdh\"}",
+          "expr": "((node_filesystem_size_bytes{mountpoint=\"/mnt/mdh\"} - node_filesystem_avail_bytes{mountpoint=\"/mnt/mdh\"}) / 2)",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -983,7 +982,7 @@
               },
               {
                 "id": "custom.axisSoftMax",
-                "value": -0.99
+                "value": 0.07
               }
             ]
           },
@@ -1523,7 +1522,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "node_filesystem_avail_bytes{mountpoint=\"/mnt/mdh\"} / node_filesystem_size_bytes{mountpoint=\"/mnt/mdh\"}",
+          "expr": "((node_filesystem_size_bytes{mountpoint=\"/mnt/mdh\"} - node_filesystem_avail_bytes{mountpoint=\"/mnt/mdh\"}) / 2) / node_filesystem_size_bytes{mountpoint=\"/mnt/mdh\"} * 100",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -2212,8 +2211,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "node",
-          "value": "node"
+          "text": "node_exporter",
+          "value": "node_exporter"
         },
         "datasource": "prometheus",
         "definition": "label_values(node_uname_info, job)",
@@ -2365,7 +2364,7 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -2384,5 +2383,5 @@
   "timezone": "",
   "title": "MangaDex@Home",
   "uid": "aFu4KdQGk",
-  "version": 5
+  "version": 7
 }

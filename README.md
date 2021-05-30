@@ -38,6 +38,10 @@ ansible-galaxy install -r requirements.yaml
 
 ## Roles
 
+Across all roles, there is one variable that is managing if the current target is a primary or a simple node. By 
+default, we assume that you are running only one node and `mdh_node_type` is set to `primary` but if you run more than
+one node, and you want to aggregate all the metrics, please set secondary nodes as `node`.
+
 ### AtHome
 
 This role will setup [flare's MD@H client](https://github.com/lflare/mdathome-golang) on your server with everything
@@ -50,11 +54,11 @@ You can override default behavior by setting Ansible variables, please check [`d
 But some variables are mandatory:
 - `mdh_token` This is your MD@H client token
 
-### Grafana
+### Metrics
 
 This role will setup Prometheus & node exporter and add Grafana and some dashboards.
 
-You can override default behavior by setting Ansible variables, please check [`defaults/main.yaml`](./grafana/defaults/main.yaml).<br/>
+You can override default behavior by setting Ansible variables, please check [`defaults/main.yaml`](metrics/defaults/main.yaml).<br/>
 But some variables are mandatory:
 - `grafana_password` This is your Grafana dashboard password
 
