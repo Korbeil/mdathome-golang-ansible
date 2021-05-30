@@ -11,16 +11,16 @@
       scrape_timeout: 5s
       evaluation_interval: 10s
     prometheus_targets:
-      node:
+      node_exporter:
         - targets:
             - 0.0.0.0:9100
           labels:
             env: "{{ prometheus_env }}"
     prometheus_scrape_jobs:
-      - job_name: 'node'
+      - job_name: node_exporter
         file_sd_configs:
           - files:
-              - '/etc/prometheus/file_sd/node.yml'
+              - '/etc/prometheus/file_sd/node_exporter.yml'
     prometheus_scrape_configs:
       - job_name: "mdathome"
         metrics_path: "/metrics"
@@ -32,10 +32,10 @@
               - 0.0.0.0:{{ mdh_port }}
             labels:
               env: "{{ prometheus_env }}"
-      - job_name: "node"
+      - job_name: node_exporter
         file_sd_configs:
           - files:
-              - "/etc/prometheus/file_sd/node.yml"
+              - "/etc/prometheus/file_sd/node_exporter.yml"
 - include_role:
     name: cloudalchemy.grafana
   vars:
