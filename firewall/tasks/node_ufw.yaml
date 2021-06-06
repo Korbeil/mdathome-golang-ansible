@@ -1,0 +1,12 @@
+---
+- name: Allow node_exporter metrics incoming traffic
+  ufw:
+    rule: 'allow'
+    from: '{{ primary_node }}'
+    to_port: '9100'
+
+- name: Allow MD@H metrics incoming traffic
+  ufw:
+    rule: 'allow'
+    from: '{{ primary_node }}'
+    to_port: '{{ mdh_port }}'
