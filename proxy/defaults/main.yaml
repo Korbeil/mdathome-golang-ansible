@@ -1,6 +1,6 @@
 ---
 certbot_admin_email: 'foo@bar.baz'
 proxy_grafana_host: 'grafana.example.com'
-mdh_port: 44344
+mdh_port: '44344'
 proxy_mdh_host: 'account_token'
 mdh_node_type: 'primary'

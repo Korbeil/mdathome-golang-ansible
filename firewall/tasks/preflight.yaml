@@ -1,0 +1,17 @@
+---
+- name: Fetch primary nodes
+  set_fact:
+    primary_nodes: "{{ hostvars|filter_hosts(property='mdh_node_type', value='primary')|list }}"
+
+- name: Fetch secondary nodes
+  set_fact:
+    secondary_nodes: "{{ hostvars|filter_hosts(property='mdh_node_type', value='node')|list }}"
+
+- name: Check we have one primary
+  fail:
+    msg: "You should have one and only one primary"
+  when: primary_nodes|length != 1
+
+- name: Clean primary node fact
+  set_fact:
+    primary_node: "{{ primary_nodes[0] }}"

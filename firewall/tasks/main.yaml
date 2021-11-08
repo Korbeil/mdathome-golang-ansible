@@ -1,34 +1,10 @@
 ---
-- name: Reset UFW rules
-  ufw:
-    state: reset
+- name: Preflight
+  include_tasks: preflight.yaml
 
-- name: Disallow all outgoing traffic
-  ufw:
-    direction: incoming
-    policy: deny
+- name: Setup UFW rules
+  include_tasks: ufw.yaml
 
-- name: Allow all outgoing traffic
-  ufw:
-    direction: outgoing
-    policy: allow
-
-- name: Allow HTTPS
-  ufw:
-    rule: allow
-    port: '443'
-
-- name: Allow SSH
-  ufw:
-    rule: allow
-    port: '22'
-
-- name: Allow HTTP
-  ufw:
-    rule: allow
-    port: '80'
-  when: mdh_node_type == 'primary'
-
-- name: Enable UFW
-  ufw:
-    state: enabled
+- name: Setup nodes UFW rules
+  include_tasks: node_ufw.yaml
+  when: mdh_node_type == 'node'
