@@ -30,7 +30,7 @@
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "prometheus",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -856,7 +856,7 @@
       "valueName": "current"
     },
     {
-      "datasource": null,
+      "datasource": "prometheus",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -914,7 +914,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "prometheus",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1104,7 +1104,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": null,
+      "datasource": "prometheus",
       "fieldConfig": {
         "defaults": {
           "color": {
